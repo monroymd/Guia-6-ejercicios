@@ -36,32 +36,42 @@ la matriz M en la cual empieza el primer elemento de la submatriz P.
             {98,45,34,23,32,56,74,16,19,18},
             {24,67,97,46,87,13,67,89,93,24},
             {21,68,78,98,90,67,12,41,65,12}};
-        int [][] matriz2 = 
+        int [][] matriz2 =
             {{36,5,67},
             {89,90,75},
             {14,22,26}};
-        boolean validar = true;
+        boolean vuelta = false;
         
-        for (int i = 0; i < (matriz.length - 2); i++) {
-            for (int j = 0; j < (matriz.length-2); j++) {
-                if (matriz[i][j] == matriz2[0][0]){
-                    for (int k = i; k < (i + matriz2.length); k++) {
-                        for (int l = j; l < (j + matriz2.length); l++) {
-                            if (matriz2[k][l] == matriz[k][l]){
-                            System.out.println("La matriz se repite en las posiciones "+ k +"," + l);
-                            
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (matriz[i][j] == matriz2[0][0]) {
+                    boolean verifica = comparaMatriz(matriz, matriz2, i, j);
+                    if (verifica) {
+                        vuelta = true;
+                        System.out.println("La matriz se encuentra en el cuadrante");
+                        for (int k = i; k < i+3; k++) {
+                            for (int l = j; l < j+3; l++) {
+                                System.out.println( k + ", "+ l + " ");
                             }
-                        }    
-                    }
-                } //else {
-                    //validar = false;
-                //}
+                        } 
+                    } 
+                }
+                
             }
-        }
-        if (validar != true){
-            System.out.println("Las matrices no coinciden");
-        }
-    }   
-    
-    
-}
+            
+        } if (!vuelta) {
+            System.out.println("La matriz no se ha encontrado");
+        } 
+    }
+    public static boolean comparaMatriz(int matriz[][], int matriz2 [][], int numi, int numj){
+        boolean verifica = true;
+        int cont1 = 0, cont2 = 0;
+        for (int i = numi; i <= numi+2 && verifica == true; i++) {
+            for (int j = numj; j <= numj+2 && verifica == true; j++) {
+                verifica = matriz[i][j] == matriz2[cont1][cont2];
+                cont2++;
+            }cont1++;
+            cont2 = 0;
+        } return verifica;
+    }
+    }
